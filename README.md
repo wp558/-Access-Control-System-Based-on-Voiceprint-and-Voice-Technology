@@ -11,20 +11,30 @@ Cube.AI 工具包、AI Toolkit 套件完成了声纹识别和语音识别功能�
 改善多次后的系统可以长时间运行，向用户提供了高安全，真意图，低成本，弱
 隐私的认证服务。
 
-##硬件层面：RT-thread 平台
+## 硬件层面：RT-thread 平台
+
    STM32H750XBH6: Cortex-M7 内核（具有浮点单元），工作频率可达 480MHz
+   
    RT-Thread 多媒体扩展板
- 组件：finish、DFS、Pin、SPI、音频、SDIO、软件模拟 IIC
- 软件包：音频：wavplayer 等
+   
+ 组件：finish、DFS、Pin、SPI、音频、SDIO、软件模拟 IIC
+
+ 软件包：音频：wavplayer 等
+
 显示屏：littlevgl2rtt 等
+
 触摸芯片：ft6236、optparse、helix 等
+
 WIFI 模块：fal、easyflash 等
+
 Onenet 互联平台：onenet、cjson、webclient 等
- 内核：信号量、多线程
+
+ 内核：信号量、多线程
 
 ## 软件层面：Python，C
-	STM32Cube.AI 工具包、AI Toolkit 套件完成模型部署
 
+STM32Cube.AI 工具包、AI Toolkit 套件完成模型部署
+	
 ## 运行
 ### 编译&下载
 
@@ -33,10 +43,15 @@ Onenet 互联平台：onenet、cjson、webclient 等
 ### 运行效果
 
 ①屏幕触摸按钮，进行语音识别。
+
 ②屏幕触摸按钮，进行声纹识别。
+
 ③主界面随机产生 6 个数字，用户读取数字，进行声纹及语音的双重认证。
+
 ④管理员登录 Onenet 查看门禁出入信息。
+
 ⑤冒认者闯入时，系统自动抓捕人像，保留证据。管理员可凭借密码、声纹、
+
 语音三者完全正确进入最高权限界面，查看冒认者信息。
 
 ## 注意事项
