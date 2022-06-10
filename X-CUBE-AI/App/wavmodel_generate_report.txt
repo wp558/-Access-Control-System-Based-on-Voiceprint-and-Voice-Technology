@@ -1,0 +1,140 @@
+Neural Network Tools for STM32 v1.4.0 (AI tools v5.2.0)
+Created date       : 2021-09-30 03:57:18
+Parameters         : generate -m C:\demo6\models\person_model1.27.h5 -o 20210930\X-CUBE-AI\App -w stm32ai_ws -n wavmodel -c 1
+
+Exec/report summary (generate dur=5.55s err=0)
+------------------------------------------------------------------------------------------------------------------------
+model file         : C:\demo6\models\person_model1.27.h5
+type               : keras (keras_dump) - tf.keras 2.4.0
+c_name             : wavmodel
+compression        : None
+quantize           : None
+workspace dir      : D:\Project\edge-ai\RT-AK\rt_ai_tools\stm32ai_ws
+output dir         : D:\Project\edge-ai\RT-AK\rt_ai_tools\20210930\X-CUBE-AI\App
+
+model_name         : person_model127
+model_hash         : d28ba9aa319591dcd2b987f477b7121a
+input              : input_0 [4342 items, 16.96 KiB, ai_float, FLOAT32, (26, 167, 1)]
+inputs (total)     : 16.96 KiB
+output             : FC2_nl [3 items, 12 B, ai_float, FLOAT32, (1, 1, 3)]
+outputs (total)    : 12 B
+params #           : 822,131 items (3.14 MiB)
+macc               : 3,062,485
+weights (ro)       : 3,288,524 B (3.14 MiB) 
+activations (rw)   : 57,216 B (55.88 KiB) 
+ram (total)        : 74,596 B (72.85 KiB) = 57,216 + 17,368 + 12
+
+------------------------------------------------------------------------------------------------------------------------
+id  layer (type)            output shape      param #     connected to             macc           rom                
+------------------------------------------------------------------------------------------------------------------------
+0   input_0 (Input)         (26, 167, 1)                                                                             
+    conv1 (Conv2D)          (24, 165, 8)      80          input_0                  348,296        320                
+    conv1_nl (Nonlinearity) (24, 165, 8)                  conv1                                                      
+------------------------------------------------------------------------------------------------------------------------
+1   pool1 (Pool)            (12, 82, 8)                   conv1_nl                                                   
+------------------------------------------------------------------------------------------------------------------------
+2   conv2 (Conv2D)          (10, 80, 32)      2,336       pool1                    1,894,432      9,344              
+    conv2_nl (Nonlinearity) (10, 80, 32)                  conv2                                                      
+------------------------------------------------------------------------------------------------------------------------
+3   pool2 (Pool)            (5, 40, 32)                   conv2_nl                                                   
+------------------------------------------------------------------------------------------------------------------------
+4   flatten (Reshape)       (6400,)                       pool2                                                      
+------------------------------------------------------------------------------------------------------------------------
+5   FC1 (Dense)             (128,)            819,328     flatten                  819,200        3,277,312          
+    FC1_nl (Nonlinearity)   (128,)                        FC1                      128                               
+------------------------------------------------------------------------------------------------------------------------
+6   FC2 (Dense)             (3,)              387         FC1_nl                   384            1,548              
+    FC2_nl (Nonlinearity)   (3,)                          FC2                      45                                
+------------------------------------------------------------------------------------------------------------------------
+person_model127 p=822131(3.14 MBytes) macc=3062485 rom=3.14 MBytes ram=55.88 KiB io_ram=16.97 KiB
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name         : person_model127
+c-name             : wavmodel
+c-node #           : 6
+c-array #          : 17
+activations size   : 57216
+weights size       : 3288524
+macc               : 3062485
+inputs             : ['input_0_output_array']
+outputs            : ['FC2_nl_output_array']
+
+
+C-Arrays (17)
+------------------------------------------------------------------------------------------------------------------------
+c_id  name (*_array)  item/size           mem-pool     c-type       fmt    comment            
+------------------------------------------------------------------------------------------------------------------------
+0     conv2_scratch0  5120/20480          activations  float        float                     
+1     conv1_scratch0  2640/10560          activations  float        float                     
+2     FC2_bias        3/12                weights      const float  float                     
+3     FC2_weights     384/1536            weights      const float  float                     
+4     FC1_bias        128/512             weights      const float  float                     
+5     FC1_weights     819200/3276800      weights      const float  float                     
+6     conv2_bias      32/128              weights      const float  float                     
+7     conv2_weights   2304/9216           weights      const float  float                     
+8     conv1_bias      8/32                weights      const float  float                     
+9     conv1_weights   72/288              weights      const float  float                     
+10    input_0_output  4342/17368          user         float        float  /input             
+11    conv1_output    7872/31488          activations  float        float                     
+12    conv2_output    6400/25600          activations  float        float                     
+13    FC1_output      128/512             activations  float        float                     
+14    FC1_nl_output   128/512             activations  float        float                     
+15    FC2_output      3/12                activations  float        float                     
+16    FC2_nl_output   3/12                user         float        float  /output            
+------------------------------------------------------------------------------------------------------------------------
+
+
+C-Layers (6)
+------------------------------------------------------------------------------------------------------------------------
+c_id  name (*_layer)  id  type              macc        rom         tensors            shape (array id)                       
+------------------------------------------------------------------------------------------------------------------------
+0     conv1           0   optimized_conv2d  348296      320         I: input_0_output  [1, 26, 167, 1] (10)                   
+                                                                    S: conv1_scratch0                                         
+                                                                    W: conv1_weights                                          
+                                                                    W: conv1_bias                                             
+                                                                    O: conv1_output    [1, 12, 82, 8] (11)                    
+------------------------------------------------------------------------------------------------------------------------
+1     conv2           2   optimized_conv2d  1894432     9344        I: conv1_output    [1, 12, 82, 8] (11)                    
+                                                                    S: conv2_scratch0                                         
+                                                                    W: conv2_weights                                          
+                                                                    W: conv2_bias                                             
+                                                                    O: conv2_output    [1, 5, 40, 32] (12)                    
+------------------------------------------------------------------------------------------------------------------------
+2     FC1             5   dense             819200      3277312     I: conv2_output0   [1, 1, 1, 6400] (12)                   
+                                                                    W: FC1_weights                                            
+                                                                    W: FC1_bias                                               
+                                                                    O: FC1_output      [1, 1, 1, 128] (13)                    
+------------------------------------------------------------------------------------------------------------------------
+3     FC1_nl          5   nl                128         0           I: FC1_output      [1, 1, 1, 128] (13)                    
+                                                                    O: FC1_nl_output   [1, 1, 1, 128] (14)                    
+------------------------------------------------------------------------------------------------------------------------
+4     FC2             6   dense             384         1548        I: FC1_nl_output   [1, 1, 1, 128] (14)                    
+                                                                    W: FC2_weights                                            
+                                                                    W: FC2_bias                                               
+                                                                    O: FC2_output      [1, 1, 1, 3] (15)                      
+------------------------------------------------------------------------------------------------------------------------
+5     FC2_nl          6   nl                45          0           I: FC2_output      [1, 1, 1, 3] (15)                      
+                                                                    O: FC2_nl_output   [1, 1, 1, 3] (16)                      
+------------------------------------------------------------------------------------------------------------------------
+
+
+ 
+Complexity per-layer - macc=3,062,485 rom=3,288,524
+------------------------------------------------------------------------------------------------------------------------
+id      layer (type)            macc                                    rom                                    
+------------------------------------------------------------------------------------------------------------------------
+0       conv1 (Conv2D)          ||||||                           11.4%  |                                 0.0% 
+2       conv2 (Conv2D)          |||||||||||||||||||||||||||||||  61.9%  |                                 0.3% 
+5       FC1 (Dense)             |||||||||||||                    26.7%  |||||||||||||||||||||||||||||||  99.7% 
+5       FC1_nl (Nonlinearity)   |                                 0.0%  |                                 0.0% 
+6       FC2 (Dense)             |                                 0.0%  |                                 0.0% 
+6       FC2_nl (Nonlinearity)   |                                 0.0%  |                                 0.0% 
+------------------------------------------------------------------------------------------------------------------------
+
+
+Evaluation report (summary)
+---------------------------------------------
+NOT EVALUATED
